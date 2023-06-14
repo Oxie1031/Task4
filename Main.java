@@ -1,29 +1,31 @@
 import java.util.*;
 import java.util.stream.*;
 
-public class Main {
+import java.util.*;
+import java.util.stream.*;
 
+public class Main {
     public static void main(String[] args) {
-        Map<String, Integer> items = new HashMap<>();
-        items.put("Apple", 10);
-        items.put("Banana", 20);
-        items.put("Orange", 30);
-        items.put("Peach", 40);
-        items.put("Melon", 50);
+        List<Fruit> fruits = new ArrayList<>();
+        fruits.add(new Fruit("Apple", 10));
+        fruits.add(new Fruit("Banana", 20));
+        fruits.add(new Fruit("Orange", 30));
+        fruits.add(new Fruit("Peach", 40));
+        fruits.add(new Fruit("Melon", 50));
 
         // とりあえず全部print
-        System.out.println("Original map:");
-        items.forEach((k,v)->System.out.println("Item: " + k + ", Count: " + v));
+        System.out.println("Original list:");
+        fruits.forEach(fruit -> System.out.println("Fruit: " + fruit.getName() + ", Count: " + fruit.getCount()));
 
         // 25以上のitemをprint
-        System.out.println("\nFiltered map (count more than 25):");
-        items.entrySet().stream()
-                .filter(entry -> entry.getValue() > 25)
-                .forEach(entry -> System.out.println("Item: " + entry.getKey() + ", Count: " + entry.getValue()));
+        System.out.println("\nFiltered list (count more than 25):");
+        fruits.stream()
+                .filter(fruit -> fruit.getCount() > 25)
+                .forEach(fruit -> System.out.println("Fruit: " + fruit.getName() + ", Count: " + fruit.getCount()));
 
         // streamを用いた平均の算出
-        OptionalDouble average = items.values().stream()
-                .mapToInt(Integer::intValue)
+        OptionalDouble average = fruits.stream()
+                .mapToInt(Fruit::getCount)
                 .average();
 
         //一応nullチェック
@@ -32,5 +34,13 @@ public class Main {
         } else {
             System.out.println("\nAverage cannot be calculated.");
         }
+
+        // streamを用いた合計の算出
+        int sum = fruits.stream()
+                .mapToInt(Fruit::getCount)
+                .sum();
+
+        System.out.println("\nSum count: " + sum);
     }
 }
+
