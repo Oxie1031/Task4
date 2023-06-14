@@ -32,5 +32,14 @@ public class Main {
         } else {
             System.out.println("\nAverage cannot be calculated.");
         }
+
+        // streamを用いた合計の算出
+        int sum = items.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        System.out.println("\nSum count: " + sum);
+
     }
 }
+
